@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Eqqon.Director.Plugin</id>
+    <version>1.0.0.0</version>
+    <title>Eqqon Director Plugin</title>
+    <authors>Meinrad Recheis</authors>
+    <owners>Eqqon GmbH</owners>
+    <licenseUrl>https://github.com/eqqon/DirectorPlugin/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/eqqon/DirectorPlugin</projectUrl>
+    <iconUrl>icon.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A Plugin Framework for Eqqon Director</description>
+    <releaseNotes>Initial release.</releaseNotes>
+    <copyright>Copyright 2020</copyright>
+    <tags>eqqon Director</tags>
+  </metadata>
+</package>
