@@ -24,7 +24,7 @@ namespace TestPlugin
 
 Now you are ready to add your own functionality by overriding any virtual method of the base class. The typical methods to override are:
 
-| Method | Effekt |
+| Method | Effect |
 | ------ | ------ |
 | DisposeHook() | Free resources here. |
 | GetCommands() | List of command names which will let other components invoke functions in the plugin via **EventBinding** |
