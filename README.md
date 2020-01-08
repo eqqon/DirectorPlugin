@@ -1,11 +1,12 @@
 # How to write a plugin for Director with .NET
 
-## Start a new .NET Framework project like this:
-![Create a new project in VS](DirectorPlugin/Images/CreateNewProject.JPG)
+## Setup
+1) Start a new .NET Framework project like this:
+![Create a new project in VS](https://github.com/eqqon/DirectorPlugin/blob/master/Images/CreateNewProject.JPG?raw=true)
 
 Note: make sure it is a **WPF User Control Library** and the Framework is **.NET Framework 4.5.2**
 
-## Download [Eqqon.Director.Plugin.dll](https://github.com/eqqon/DirectorPlugin/blob/master/Releases/1.0.0.0/Eqqon.Director.Plugin.dll) and reference it in your project.
+2) Download [Eqqon.Director.Plugin.dll](https://github.com/eqqon/DirectorPlugin/blob/master/Releases/1.0.0.0/Eqqon.Director.Plugin.dll) and reference it in your project.
 
 ## Create a Plugin Controller
 
@@ -38,3 +39,20 @@ Now you are ready to add your own functionality by overriding any virtual method
 
 Here is an example of how the overridden GetPropertiesHook() method could look like:
 
+```C#
+        /// <summary>
+        /// Overwrite this to define the properties of the plugin
+        /// </summary>
+        protected virtual IEnumerable<PluginProperty> GetPropertiesHook()
+        {
+            yield return new PluginProperty() { Name = "StringProperty", Type = typeof(string), Value = "Initial value"};
+            yield return new PluginProperty() { Name = "BoolProperty", Type = typeof(bool), Value = true };
+            yield return new PluginProperty() { Name = "DoubleProperty", Type = typeof(double), Value = 50.0};
+        }
+```
+
+## Logging
+
+To write logs into Director's excellent logging framework use the base class' method **Log(string message, DirectorLogLevel level, string messag)**
+
+Even if your logging load at level DEBUG is high it won't impact performance as long as the respective logger is not set to DEBUG in Director.
