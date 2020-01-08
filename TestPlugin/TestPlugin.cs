@@ -8,5 +8,6 @@ namespace TestPlugin
 {
     public class TestPlugin : Eqqon.Director.Plugin.PluginController
     {
+
     }
 }

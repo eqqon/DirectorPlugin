@@ -74,7 +74,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Eqqon.Director.Plugin\Eqqon.Director.Plugin.csproj">
       <Project>{51b5d7f3-3134-48d0-8997-1e85813d8a68}</Project>
-      <Name>DirectorPlugin</Name>
+      <Name>Eqqon.Director.Plugin</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
