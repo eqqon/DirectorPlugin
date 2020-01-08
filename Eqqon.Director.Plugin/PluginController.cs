@@ -42,6 +42,7 @@ namespace Eqqon.Director.Plugin
         protected virtual FrameworkElement GetViewHook()
         {
             var v= new DemoView();
+            UpdateView(v);
             // bind the properties to the gui
             v.StringPropertyTextBox.TextChanged += (x, y) => Properties["StringProperty"].Value = v.StringPropertyTextBox.Text;
             v.BoolPropertyCheckBox.Click += (x, y) => Properties["BoolProperty"].Value = (v.BoolPropertyCheckBox.IsChecked == true);
@@ -141,6 +142,32 @@ namespace Eqqon.Director.Plugin
 
         #endregion
 
+
+        #region --> Commands
+
+        /// <summary>
+        /// Override this to define which commands can be invoked on this plugin
+        /// </summary>
+        public virtual IEnumerable<string> GetCommands()
+        {
+            yield return "Command1";
+            yield return "Command2";
+        }
+
+        /// <summary>
+        /// Director will call this function to invoke commands that have been declared in GetCommands().
+        /// </summary>
+        public void InvokeCommand(string command_name, Dictionary<string, object> data)
+        {
+            Log("PluginController", DirectorLogLevel.DEBUG, $"Command '{command_name}' has been invoked");
+            MessageBox.Show($"Command '{command_name}'");
+        }
+
+        #endregion
+
+
+        #region --> Logging
+
         /// <summary>
         /// Director will subscribe this event to watch for logging requests of the plugin.
         /// Use Log(...) to fire the event.
@@ -158,6 +185,8 @@ namespace Eqqon.Director.Plugin
             LogRequested?.Invoke(logger, (int)level, message);
         }
 
+        #endregion
+
         /// <summary>
         /// Overwrite this to finalize the plugin
         /// </summary>
@@ -167,7 +196,10 @@ namespace Eqqon.Director.Plugin
 
         public void Dispose()
         {
+            Event = null;
+            LogRequested = null;
             DisposeHook();
+            Properties.Clear();
         }
     }
 }
