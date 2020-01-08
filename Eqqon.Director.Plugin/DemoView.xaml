@@ -7,17 +7,24 @@
     <StackPanel>
         <Label FontSize="30">Demo Director Plugin View</Label>
         <Label FontWeight="Bold">Property Interaction</Label>
-        <StackPanel Orientation="Horizontal">
+        <StackPanel Orientation="Horizontal" Margin="20,0">
             <Label >A string property:</Label>
-            <TextBox x:FieldModifier="public" Name="StringPropertyTextBox" Width="200"></TextBox>
+            <TextBox x:FieldModifier="public" Name="StringPropertyTextBox" Width="200" VerticalAlignment="Center"></TextBox>
         </StackPanel>
-        <StackPanel Orientation="Horizontal">
+        <StackPanel Orientation="Horizontal" Margin="20,0">
             <Label >A boolean property:</Label>
             <CheckBox x:FieldModifier="public" Name="BoolPropertyCheckBox" VerticalAlignment="Center"></CheckBox>
         </StackPanel>
-        <StackPanel Orientation="Horizontal">
+        <StackPanel Orientation="Horizontal" Margin="20,0">
             <Label >A double property (0..100):</Label>
             <Slider x:FieldModifier="public" Name="DoublePropertySlider" Width="200" VerticalAlignment="Center" Minimum="0" Maximum="100"></Slider>
         </StackPanel>
-    </StackPanel>
+        <Label FontWeight="Bold">Event Based Interaction</Label>
+        <StackPanel Orientation="Horizontal" Margin="20,0">
+            <Label >Fire events:</Label>
+            <Button x:FieldModifier="public" Name="Event1Button" Width="100" VerticalAlignment="Center" Margin="10,0">Event 1</Button>
+            <Button x:FieldModifier="public" Name="Event2Button" Width="100" VerticalAlignment="Center">Event 2</Button>
+        </StackPanel>
+
+</StackPanel>
 </UserControl>
