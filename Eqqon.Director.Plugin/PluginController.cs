@@ -25,7 +25,7 @@ namespace Eqqon.Director.Plugin
         /// Note: A director plugin can have more than one view, depending on how many Director-pages it is embedded.
         /// Usually you don't override it
         /// </summary>
-        public virtual List<FrameworkElement> Views { get; }=new List<FrameworkElement>();
+        public virtual List<FrameworkElement> Views { get; } = new List<FrameworkElement>();
 
         // usually not overridden
         public virtual FrameworkElement GetView()
@@ -41,22 +41,26 @@ namespace Eqqon.Director.Plugin
         /// </summary>
         protected virtual FrameworkElement GetViewHook()
         {
-            var v= new DemoView();
+            var v = new DemoView();
             UpdateView(v);
-            // bind the properties to the gui
-            v.StringPropertyTextBox.TextChanged += (x, y) => Properties["StringProperty"].Value = v.StringPropertyTextBox.Text;
-            v.BoolPropertyCheckBox.Click += (x, y) => Properties["BoolProperty"].Value = (v.BoolPropertyCheckBox.IsChecked == true);
-            v.DoublePropertySlider.ValueChanged += (x, y) => Properties["DoubleProperty"].Value = v.DoublePropertySlider.Value;
-            // bind the events to the buttons
-            v.Event1Button.Click += (x, y) => FireEvent("Event1");
-            v.Event2Button.Click += (x, y) => FireEvent("Event2", new Dictionary<string, object>() { ["greeting"] = "Hello World!" });
+            try
+            {
+                // bind the properties to the gui
+                v.StringPropertyTextBox.TextChanged += (x, y) => Properties["StringProperty"].Value = v.StringPropertyTextBox.Text;
+                v.BoolPropertyCheckBox.Click += (x, y) => Properties["BoolProperty"].Value = (v.BoolPropertyCheckBox.IsChecked == true);
+                v.DoublePropertySlider.ValueChanged += (x, y) => Properties["DoubleProperty"].Value = v.DoublePropertySlider.Value;
+                // bind the events to the buttons
+                v.Event1Button.Click += (x, y) => FireEvent("Event1");
+                v.Event2Button.Click += (x, y) => FireEvent("Event2", new Dictionary<string, object>() { ["greeting"] = "Hello World!" });
+            }
+            catch (Exception) { }
             return v;
         }
 
         // usually not overridden
         public virtual void UpdateViews()
         {
-            foreach(var view in Views)
+            foreach (var view in Views)
                 UpdateView(view);
         }
 
@@ -66,10 +70,14 @@ namespace Eqqon.Director.Plugin
         /// <param name="view"></param>
         public virtual void UpdateView(FrameworkElement view)
         {
-            var v = view as DemoView;
-            v.StringPropertyTextBox.Text = (string) Properties["StringProperty"].Value;
-            v.BoolPropertyCheckBox.IsChecked = (bool)Properties["BoolProperty"].Value;
-            v.DoublePropertySlider.Value = (double)Properties["DoubleProperty"].Value;
+            try
+            {
+                var v = view as DemoView;
+                v.StringPropertyTextBox.Text = (string)Properties["StringProperty"].Value;
+                v.BoolPropertyCheckBox.IsChecked = (bool)Properties["BoolProperty"].Value;
+                v.DoublePropertySlider.Value = (double)Properties["DoubleProperty"].Value;
+            }
+            catch (Exception) { }
         }
 
         #region --> Properties
@@ -105,9 +113,9 @@ namespace Eqqon.Director.Plugin
         /// </summary>
         protected virtual IEnumerable<PluginProperty> GetPropertiesHook()
         {
-            yield return new PluginProperty() { Name = "StringProperty", Type = typeof(string), Value = "Initial value"};
+            yield return new PluginProperty() { Name = "StringProperty", Type = typeof(string), Value = "Initial value" };
             yield return new PluginProperty() { Name = "BoolProperty", Type = typeof(bool), Value = true };
-            yield return new PluginProperty() { Name = "DoubleProperty", Type = typeof(double), Value = 50.0};
+            yield return new PluginProperty() { Name = "DoubleProperty", Type = typeof(double), Value = 50.0 };
         }
 
         #endregion
@@ -135,7 +143,7 @@ namespace Eqqon.Director.Plugin
         /// Note: the event_name must match the one declared in GetEvents()
         /// Note: data is optional and can be processed in Director (i.e. by scripts)
         /// </summary>
-        public virtual void FireEvent(string event_name, Dictionary<string, object>data=null)
+        public virtual void FireEvent(string event_name, Dictionary<string, object> data = null)
         {
             Event?.Invoke(event_name, data);
         }
@@ -157,7 +165,7 @@ namespace Eqqon.Director.Plugin
         /// <summary>
         /// Director will call this function to invoke commands that have been declared in GetCommands().
         /// </summary>
-        public void InvokeCommand(string command_name, Dictionary<string, object> data)
+        public virtual void InvokeCommand(string command_name, Dictionary<string, object> data)
         {
             Log("PluginController", DirectorLogLevel.DEBUG, $"Command '{command_name}' has been invoked");
             MessageBox.Show($"Command '{command_name}'");
